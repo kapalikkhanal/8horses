@@ -5,12 +5,14 @@ import {
 } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import { Miniver, Poppins } from 'next/font/google';
+import { useRouter } from 'next/navigation'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import Navbar from './components/Navbar';
 
 const miniver = Miniver({
   weight: '400',
@@ -24,8 +26,7 @@ const poppins = Poppins({
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [slidesPerView, setSlidesPerView] = useState(3);
+  const router = useRouter();
 
   const products = [
     {
@@ -73,51 +74,7 @@ export default function Home() {
   return (
     <div className="font-sans text-white">
       {/* Header */}
-      <header className="bg-[#3B141C] bg-opacity-50 py-5 fixed w-full z-50">
-        <nav className="px-10 mx-auto flex justify-between items-center">
-          <a href="#" className="text-white text-3xl font-bold p-1">8 Horses</a>
-
-          {/* Desktop Menu */}
-          <ul className="hidden md:flex items-center gap-10">
-            <li><a href="#home" className="text-white hover:text-gray-300 text-lg">Home</a></li>
-            <li><a href="#about" className="text-white hover:text-gray-300 text-lg">About</a></li>
-            <li><a href="#product" className="text-white hover:text-gray-300 text-lg">Product</a></li>
-            <li><a href="#contact" className="text-white hover:text-gray-300 text-lg">Contact</a></li>
-            <li><a href="/signup" className="text-white hover:text-gray-300 text-lg">Signup</a></li>
-            <li><a href="/signin" className="text-white hover:text-gray-300 text-lg">Signin</a></li>
-          </ul>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-white text-2xl"
-            onClick={() => setIsMenuOpen(true)}
-          >
-            <FaBars />
-          </button>
-        </nav>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden fixed inset-0 bg-black bg-opacity-90 z-50">
-            <div className="w-[90%] max-w-[1200px] mx-auto py-8 px-4">
-              <button
-                className="text-white text-2xl absolute top-5 right-5"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <FaTimes />
-              </button>
-              <ul className="flex flex-col gap-6 mt-16">
-                <li><a href="#home" className="text-white text-xl" onClick={() => setIsMenuOpen(false)}>Home</a></li>
-                <li><a href="#about" className="text-white text-xl" onClick={() => setIsMenuOpen(false)}>About</a></li>
-                <li><a href="#product" className="text-white text-xl" onClick={() => setIsMenuOpen(false)}>Product</a></li>
-                <li><a href="#contact" className="text-white text-xl" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
-                <li><a href="/signup" className="text-white text-xl" onClick={() => setIsMenuOpen(false)}>Signup</a></li>
-                <li><a href="/signin" className="text-white text-xl" onClick={() => setIsMenuOpen(false)}>Signin</a></li>
-              </ul>
-            </div>
-          </div>
-        )}
-      </header>
+      <Navbar />
 
       <main>
         {/* Hero Section */}
@@ -159,7 +116,7 @@ export default function Home() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-10 bg-white">
+        <section id="about" className="py-24 bg-white">
           <div className="w-[90%] max-w-[1200px] mx-auto flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/2">
               <img src="/images/about.jpg" alt="About Us" className="w-full rounded-full" />
@@ -199,7 +156,7 @@ export default function Home() {
         </section>
 
         {/* Product Section */}
-        <section id="product" className="py-10 bg-[#f9f9f9]">
+        <section id="product" className="py-24 bg-[#f9f9f9]">
           <div className="w-[90%] max-w-[1200px] mx-auto">
             <h2 className="text-4xl text-center text-[#333] mb-3">Products</h2>
             <div className="h-1 w-16 bg-[#F3961C] mx-auto mb-10" />
@@ -251,7 +208,7 @@ export default function Home() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-20 bg-white text-black">
+        <section id="contact" className="py-24 bg-white text-black">
           <div className="w-[90%] max-w-[1200px] mx-auto">
             <h2 className="text-4xl text-[#333] text-center mb-3">Contact Us</h2>
             <div className="h-1 w-16 bg-[#F3961C] mx-auto mb-10" />

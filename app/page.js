@@ -90,13 +90,13 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
                 <a
-                  href="#"
+                  href="/dashboard"
                   className="bg-[#F3961C] border hover:bg-[#e0553d] hover:border-white text-[#3B141C] px-6 py-3 rounded-3xl font-bold transition duration-300"
                 >
                   Order Now
                 </a>
                 <a
-                  href="#"
+                  href="#contact"
                   className="border border-white hover:bg-[#e0553d] text-white hover:text-[#3B141C] px-6 py-3 rounded-3xl font-bold transition duration-300"
                 >
                   Contact Us

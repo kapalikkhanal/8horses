@@ -34,16 +34,43 @@ export default function SignUp() {
             return
         }
 
+        if (formData.password.length < 6) {
+            setError('Password must be at least 6 characters')
+            return
+        }
+
         setIsSubmitting(true)
 
         try {
-            // Add your registration logic here
-            console.log('Signing up with:', formData)
+            // Call the backend API
+            const response = await fetch(`http://localhost:3001/api/auth/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                    name: formData.username,
+                    role: formData.role
+                }),
+            })
 
-            // Redirect after successful registration
+            const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Registration failed')
+            }
+
+            // Store the session token (optional, can also use httpOnly cookies)
+            if (data.session?.access_token) {
+                localStorage.setItem('access_token', data.session.access_token)
+            }
+
+            // Redirect to dashboard after successful registration
             router.push('/dashboard')
         } catch (err) {
-            setError(err.message || 'Registration failed')
+            setError(err.message || 'Registration failed. Please try again.')
         } finally {
             setIsSubmitting(false)
         }
@@ -110,6 +137,7 @@ export default function SignUp() {
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
+                                minLength={6}
                                 className="w-full px-4 py-2 rounded text-white border border-white/30"
                             />
                         </div>
@@ -124,6 +152,7 @@ export default function SignUp() {
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
                                 required
+                                minLength={6}
                                 className="w-full px-4 py-2 rounded text-white border border-white/30"
                             />
                         </div>
